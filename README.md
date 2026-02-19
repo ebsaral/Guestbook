@@ -1,71 +1,30 @@
-You need to create the backend of a GuestBook as attached in the mockup. You don’t have to build the frontend.
+# Guestbook
 
-There should be two new tables:
+An example backend app with 'users' and 'entries' API endpoints. _You can view example folder for project requirements._
 
-- User (fields: Name, Created Date)
-- Entry (fields: Subject, Message, Created Date, Fk: User).
+Features:
 
-Each unique name should create a new user in the table.
+- `Create entry` endpoint.
+- `List entries` endpoint.
+- `List users` endpoint, with a query optimization.
+- Database: SQLite.
+- API Framework: Django Rest Framework.
+- Testing: End-to-end, with pytest.
 
-The assignment should have 3 different APIs:
+## Setup
 
-- **Create entry:** Allowing the end user to add an entry by providing a name, message, and subject.
-  - For each new unique name, there should be a new user created in the model.
-- **Get entries:** Return a list of all GuestBook’s latest entries.
-  - Pagination: 3 items per page
-  - Order by: Created date descending.
-  - The name also should be provided as in the example.
-- **Get users’ data:** Displaying the data according to the users as explained. For each user:
-  - total count of messages
-  - the subject of user’s last entry | message of user’s last entry (as a whole string, divided by ‘|’
-  - DO NOT USE PAGINATION
+1. Install [uv package and project manager](https://docs.astral.sh/uv/getting-started/installation/): `curl -LsSf https://astral.sh/uv/install.sh | sh`
 
-* Please OPTIMISE queries as much as possible, and keep in mind that data can get relatively big. Advance ORM usage will be rewarded additionally.
-* Writing an end-to-end test will be rewarded additionally.
-* Writing comments and clean code will be rewarded additionally.
-  Feel free to use any database.
+2. Setup venv and install packages: `uv sync`
 
-Get entries response example:
+## Development
 
-```json
-{
-    "count": 3,
-    "page_size": 3,
-    "total_pages": 1,
-    "current_page_number": 1,
-    "links": {
-        "next": null,
-        "previous": null
-    },
-    "entries": [
-        {
-            "user": <user>,
-            "subject": <subject>,
-            "message": <message>,
-        },
-        {
-            "user": <user>,
-            "subject": <subject>,
-            "message": <message>,
-        },
-        ...
-    ]
-}
-```
+Project entrypoint: `cd guestboook`
 
-Get users response example:
+Migrations: `python manage.py migrate`
 
-```json
-{
-  "users": [
-    {
-      "username": "user_1",
-      "last_entry": "subject_3 | message_3"
-    },
-    {
-      "username": "user_2",
-      "last_entry": "subject_9 | message_9"
-    }
-  ]
-}
-```
+Add admin user: `python manage.py createsuperuser --username admin --email admin@example.com`
+
+Run server: `python manage.py runserver`, and visit `http://127.0.0.1:8000/`
+
+Tests: `pytest`
