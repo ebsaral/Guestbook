@@ -19,7 +19,7 @@ Features:
 
 ## Development
 
-Project entrypoint: `cd guestboook`
+Project entrypoint: `cd guestbook`
 
 Migrations: `python manage.py migrate`
 
